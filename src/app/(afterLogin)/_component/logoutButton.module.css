@@ -1,0 +1,40 @@
+.logOutButton {
+  width: 258px;
+  height: 66px;
+  padding: 12px;
+  display: flex;
+  margin: 12px 0;
+  cursor: pointer;
+  border: none;
+  align-items: center;
+  background-color: #fff;
+  text-align: left;
+  color: black;
+}
+
+.logOutButton:hover {
+  background-color: rgba(15, 20, 25, 0.1);
+  border-radius: 33px;
+}
+
+/* justify -content ( 가로축 - 중심축 )
+align-items ( 세로축 - 교차축 ) */
+
+.logOutUserImage {
+  display: flex;
+  align-items: center;
+}
+
+.logOutUserImage img {
+  width: 40px;
+  border-radius: 50%;
+}
+
+.logOutUserName {
+  /* margin: 상 우 하 좌 */
+  /* margin: 상=하 좌=우 */
+  margin: 0 12px;
+}
+.logOutUserName > div:first-child {
+  font-weight: bold;
+}

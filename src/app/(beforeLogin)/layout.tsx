@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import stlye from "@/app/page.module.css";
+import style from "./page.module.css";
 type Props = {
   children: ReactNode;
   modal: ReactNode;
@@ -7,7 +7,7 @@ type Props = {
 
 export default function Layout({ children, modal }: Props) {
   return (
-    <div className={stlye.container}>
+    <div className={style.container}>
       {/* 비포 로그인 레이아웃 */}
       {/* i / login 은 layout 기준으로 children 이고 */}
       {/* @modal 에 있는건 modal 에서 됩니다. */}
