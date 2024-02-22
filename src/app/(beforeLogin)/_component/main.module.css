@@ -9,7 +9,9 @@
 .left {
   flex: 1;
   display: flex;
+  /* 가로 */
   justify-content: center;
+  /* 세로 */
   align-items: center;
 }
 .right {
