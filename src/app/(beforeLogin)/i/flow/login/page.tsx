@@ -1,3 +1,6 @@
-export default function Home() {
-  return <main>로그인 모달</main>;
+// 서버 컴포넌트가 됨
+import LoginModal from "@/app/(beforeLogin)/_component/LoginModal";
+
+export default function Page() {
+  return <LoginModal />;
 }
