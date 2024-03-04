@@ -52,7 +52,7 @@ export default function AfterLoginLayout({
             <TrendSection />
             {/* <FollowRecommend /> */}
             <div className={style.followRecommend}>
-              <h3>팔로우 추천</h3>
+              <h3 style={{ color: "black" }}>팔로우 추천</h3>
               <FollowRecommend />
             </div>
           </section>
