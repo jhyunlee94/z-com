@@ -8,11 +8,9 @@ import LogOutButton from "./_component/LogoutButton";
 import TrendSection from "./_component/TrendSection";
 import FollowRecommend from "./_component/FollowRecommend";
 
-export default function AfterLoginLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+type Props = { children: ReactNode; modal: ReactNode };
+
+export default function AfterLoginLayout({ children, modal }: Props) {
   return (
     <div className={style.container}>
       <header className={style.leftSectionWrapper}>
@@ -60,6 +58,8 @@ export default function AfterLoginLayout({
       </div>
       {/* 애프터 로그인 레이아웃 */}
       {/* {children} */}
+      {/* 모달은 컨테이너 안에는 들어가있지만 타입스크립트 부분 체크하면됨 */}
+      {modal}
     </div>
   );
 }
