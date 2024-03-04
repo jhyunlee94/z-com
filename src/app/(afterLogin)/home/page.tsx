@@ -3,6 +3,7 @@ import style from "./home.module.css";
 import Tap from "./_component/Tap";
 import TabProvider from "./_component/TabProvider";
 import PostForm from "./_component/PostForm";
+import Post from "../_component/Post";
 export default function Home() {
   return (
     <main className={style.main}>
@@ -10,6 +11,10 @@ export default function Home() {
         <Tap />
         {/* Form 은 대부분 client 라고 생각하면 됨 */}
         <PostForm />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
       </TabProvider>
     </main>
   );
