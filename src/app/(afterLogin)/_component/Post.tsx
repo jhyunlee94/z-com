@@ -6,6 +6,7 @@ import "dayjs/locale/ko";
 import ActionButtons from "./ActionButtons";
 
 dayjs.locale("ko");
+
 dayjs.extend(relativeTime);
 
 export default function Post() {
