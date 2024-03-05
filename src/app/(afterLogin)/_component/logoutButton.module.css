@@ -1,5 +1,5 @@
 .logOutButton {
-  width: 258px;
+  width: 66px;
   height: 66px;
   padding: 12px;
   display: flex;
@@ -9,32 +9,31 @@
   align-items: center;
   background-color: #fff;
   text-align: left;
-  color: black;
 }
-
-.logOutButton:hover {
-  background-color: rgba(15, 20, 25, 0.1);
-  border-radius: 33px;
+.logOutUserName {
+  display: none;
 }
-
-/* justify -content ( 가로축 - 중심축 )
-align-items ( 세로축 - 교차축 ) */
-
 .logOutUserImage {
   display: flex;
   align-items: center;
 }
-
 .logOutUserImage img {
   width: 40px;
   border-radius: 50%;
 }
-
-.logOutUserName {
-  /* margin: 상 우 하 좌 */
-  /* margin: 상=하 좌=우 */
-  margin: 0 12px;
+@media all and (min-width: 1300px) {
+  .logOutButton {
+    width: 258px;
+  }
+  .logOutUserName {
+    margin: 0 12px;
+    display: inline-block;
+  }
+  .logOutUserName > div:first-child {
+    font-weight: bold;
+  }
 }
-.logOutUserName > div:first-child {
-  font-weight: bold;
+.logOutButton:hover {
+  background-color: rgba(15, 20, 25, 0.1);
+  border-radius: 33px;
 }
