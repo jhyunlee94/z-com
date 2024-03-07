@@ -1,25 +1,50 @@
 "use client";
 
 import style from "@/app/(beforeLogin)/_component/login.module.css";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { ChangeEventHandler, FormEventHandler, useState } from "react";
 
 export default function LoginModal() {
-  const [id, setId] = useState();
-  const [password, setPassword] = useState();
-  const [message, setMessage] = useState();
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const router = useRouter();
-  const onSubmit = () => {};
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    setMessage("");
+    // signIn 이 여러개인데
+    // 클라이언트 환경에서는 next-auth/react 사용하면되는거고
+    // 서버환경에서는 저희가 만들었던 @/auth 사용하면 됨
+
+    // signIn("kakao");
+    try {
+      await signIn("credentials", {
+        username: id,
+        password,
+        redirect: false,
+      });
+      router.replace("/home");
+    } catch (error) {
+      console.error(error);
+      setMessage("아이디와 비밀번호가 일치하지 않습니다.");
+    }
+  };
 
   const onClickClose = () => {
     router.back();
   };
 
-  const onChangeId = () => {};
+  const onChangeId: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setId(e.target.value);
+  };
 
-  const onChangePassword = () => {};
+  const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setPassword(e.target.value);
+  };
 
+  // 여기는 클라이언트로 하는거 보여드리겠습니다.
   return (
     <div className={style.modalBackground}>
       <div className={style.modal}>

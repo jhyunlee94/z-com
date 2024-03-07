@@ -41,7 +41,7 @@ export default function Post({ noImage }: Props) {
           <Link href={`/${target.User.id}`} className={style.postUserImage}>
             <img src={target.User.image} alt={target.User.nickname} />
           </Link>
-          <div className={style.postShade} />
+          {/* <div className={style.postShade} /> */}
         </div>
         <div className={style.postBody}>
           <div className={style.postMeta}>

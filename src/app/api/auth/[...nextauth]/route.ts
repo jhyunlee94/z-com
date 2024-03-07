@@ -11,4 +11,4 @@
  * GET /api/auth/b;
  *
  */
-import { GET, POST } from "@/auth";
+export { GET, POST } from "@/auth";
