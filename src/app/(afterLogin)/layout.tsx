@@ -9,7 +9,7 @@ import TrendSection from "./_component/TrendSection";
 import FollowRecommend from "./_component/FollowRecommend";
 import RightSearchZone from "./_component/RightSearchZone";
 import { auth } from "@/auth";
-
+import RQProvider from "./_component/RQProvider";
 type Props = { children: ReactNode; modal: ReactNode };
 
 export default async function AfterLoginLayout({ children, modal }: Props) {
@@ -50,24 +50,27 @@ export default async function AfterLoginLayout({ children, modal }: Props) {
           </div>
         </section>
       </header>
-      <div className={style.rightSectionWrapper}>
-        <div className={style.rightSectionInner}>
-          <main className={style.main}>{children}</main>
-          <section className={style.rightSection}>
-            <RightSearchZone />
-            <TrendSection />
-            {/* <FollowRecommend /> */}
-            <div className={style.followRecommend}>
-              <h3 style={{ color: "black" }}>팔로우 추천</h3>
-              <FollowRecommend />
-            </div>
-          </section>
+      <RQProvider>
+        {/* 적당하게 감싸주면 된다 */}
+        <div className={style.rightSectionWrapper}>
+          <div className={style.rightSectionInner}>
+            <main className={style.main}>{children}</main>
+            <section className={style.rightSection}>
+              <RightSearchZone />
+              <TrendSection />
+              {/* <FollowRecommend /> */}
+              <div className={style.followRecommend}>
+                <h3 style={{ color: "black" }}>팔로우 추천</h3>
+                <FollowRecommend />
+              </div>
+            </section>
+          </div>
         </div>
-      </div>
-      {/* 애프터 로그인 레이아웃 */}
-      {/* {children} */}
-      {/* 모달은 컨테이너 안에는 들어가있지만 타입스크립트 부분 체크하면됨 */}
-      {modal}
+        {/* 애프터 로그인 레이아웃 */}
+        {/* {children} */}
+        {/* 모달은 컨테이너 안에는 들어가있지만 타입스크립트 부분 체크하면됨 */}
+        {modal}
+      </RQProvider>
     </div>
   );
 }
