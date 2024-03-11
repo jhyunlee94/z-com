@@ -1,22 +1,23 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import Post from "../../_component/Post";
+import Post from "@/app/(afterLogin)/_component/Post";
 import { Post as IPost } from "@/model/Post";
-async function getPostRecommends() {
-  const res = await fetch(`http://localhost:9090/api/postRecommends`, {
-    next: {
-      tags: ["posts", "recommends"],
-    },
-    cache: "no-store", // cache 안할때 넣어줌
-  });
+import { getPostRecommends } from "../_lib/getPostRecommends";
+// async function getPostRecommends() {
+//   const res = await fetch(`http://localhost:9090/api/postRecommends`, {
+//     next: {
+//       tags: ["posts", "recommends"],
+//     },
+//     // cache: "no-store", // cache 안할때 넣어줌
+//   });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
+//   if (!res.ok) {
+//     throw new Error("Failed to fetch data");
+//   }
 
-  return res.json();
-}
+//   return res.json();
+// }
 
 export default function PostRecommends() {
   const { data } = useQuery<IPost[]>({
@@ -24,7 +25,14 @@ export default function PostRecommends() {
     queryFn: getPostRecommends,
   });
 
-  return data?.map((post) => {
-    <Post noImage={false} key={post.postId} post={post} />;
-  });
+  // console.log("Data", data);
+
+  return (
+    <>
+      {data?.map((post) => {
+        // console.log("post", post);
+        return <Post key={post.postId} post={post} />;
+      })}
+    </>
+  );
 }

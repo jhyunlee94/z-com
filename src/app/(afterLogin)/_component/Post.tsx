@@ -14,7 +14,7 @@ dayjs.locale("ko");
 dayjs.extend(relativeTime);
 
 type Props = {
-  noImage: boolean;
+  noImage?: boolean;
   post: Post;
 };
 export default function Post({ noImage, post }: Props) {
@@ -31,12 +31,15 @@ export default function Post({ noImage, post }: Props) {
   // };
 
   const target = post;
-  if (Math.random() > 0.5 && !noImage) {
-    target.Images.push({ imageId: 1, link: faker.image.urlLoremFlickr() });
-    target.Images.push({ imageId: 1, link: faker.image.urlLoremFlickr() });
-    target.Images.push({ imageId: 1, link: faker.image.urlLoremFlickr() });
-    target.Images.push({ imageId: 1, link: faker.image.urlLoremFlickr() });
-  }
+  console.log("target", JSON.stringify(target));
+
+  // if (Math.random() > 0.5 && !noImage) {
+  //   target.Images.push({ imageId: 1, link: faker.image.urlLoremFlickr() });
+  //   target.Images.push({ imageId: 1, link: faker.image.urlLoremFlickr() });
+  //   target.Images.push({ imageId: 1, link: faker.image.urlLoremFlickr() });
+  //   target.Images.push({ imageId: 1, link: faker.image.urlLoremFlickr() });
+  // }
+
   return (
     <PostArticle post={target}>
       <div className={style.postWrapper}>
@@ -44,7 +47,7 @@ export default function Post({ noImage, post }: Props) {
           <Link href={`/${target.User.id}`} className={style.postUserImage}>
             <img src={target.User.image} alt={target.User.nickname} />
           </Link>
-          {/* <div className={style.postShade} /> */}
+          <div className={style.postShade} />
         </div>
         <div className={style.postBody}>
           <div className={style.postMeta}>
