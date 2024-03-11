@@ -25,6 +25,7 @@ export default function PostRecommends() {
     queryFn: getPostRecommends,
     staleTime: 60 * 1000, // fresh -> stale 시간 (1분)
     gcTime: 300 * 1000, // 기본 5분, inactive 를 봐야함
+    // initialData: () => [] // 설정해야지만 reset 됨, 없을경우 그냥 새로 가져옴
   });
 
   // console.log("Data", data);
