@@ -298,9 +298,9 @@ export const handlers = [
   }),
   http.get("/api/trends", ({ request }) => {
     return HttpResponse.json([
-      { tagId: 1, title: "제로초", count: 1264 },
-      { tagId: 2, title: "원초", count: 1264 },
-      { tagId: 3, title: "투초", count: 1264 },
+      { tagId: 1, title: "제로초", count: 1261 },
+      { tagId: 2, title: "원초", count: 1262 },
+      { tagId: 3, title: "투초", count: 1263 },
       { tagId: 4, title: "쓰리초", count: 1264 },
       { tagId: 5, title: "포초", count: 1264 },
       { tagId: 6, title: "파이브초", count: 1264 },
