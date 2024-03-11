@@ -27,12 +27,8 @@ export default function PostRecommends() {
 
   // console.log("Data", data);
 
-  return (
-    <>
-      {data?.map((post) => {
-        // console.log("post", post);
-        return <Post key={post.postId} post={post} />;
-      })}
-    </>
-  );
+  return data?.map((post) => (
+    // console.log("post", post);
+    <Post key={post.postId} post={post} />
+  ));
 }
