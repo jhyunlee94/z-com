@@ -9,6 +9,7 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
+import PostRecommends from "./_component/PostRecommends";
 
 async function getPostRecommends() {
   const res = await fetch(`http://localhost:9090/api/postRecommends`, {
@@ -44,10 +45,7 @@ export default async function Home() {
           <Tap />
           {/* Form 은 대부분 client 라고 생각하면 됨 */}
           <PostForm />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          <PostRecommends />
         </TabProvider>
       </HydrationBoundary>
     </main>
