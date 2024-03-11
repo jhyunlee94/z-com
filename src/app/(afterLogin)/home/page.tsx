@@ -11,6 +11,7 @@ import {
 } from "@tanstack/react-query";
 import { getPostRecommends } from "./_lib/getPostRecommends";
 import PostRecommends from "./_component/PostRecommends";
+import Tabecider from "./_component/Tabecider";
 
 // async function getPostRecommends() {
 //   const res = await fetch(`http://localhost:9090/api/postRecommends`, {
@@ -46,7 +47,8 @@ export default async function Home() {
           <Tap />
           {/* Form 은 대부분 client 라고 생각하면 됨 */}
           <PostForm />
-          <PostRecommends />
+          <Tabecider />
+          {/* <PostRecommends /> */}
         </TabProvider>
       </HydrationBoundary>
     </main>

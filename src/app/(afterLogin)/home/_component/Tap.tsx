@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import style from "./tap.module.css";
+import { TabContext } from "./TabProvider";
 
 export default function Tap() {
-  const [tab, setTab] = useState("rec");
+  // const [tab, setTab] = useState("rec");
+  const { tab, setTab } = useContext(TabContext);
   const onClickRec = () => {
     setTab("rec");
   };
