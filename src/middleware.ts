@@ -6,7 +6,7 @@ export { auth } from "./auth"; // 이름을 바꿔놔서 이게 Export Function 
 export async function middleware() {
   const session = await auth();
   if (!session) {
-    return NextResponse.redirect(`http://localhost:3001/i/flow/login`);
+    return NextResponse.redirect(`http://localhost:3000/i/flow/login`);
   }
 }
 

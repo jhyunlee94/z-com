@@ -25,6 +25,6 @@ export default function PostRecommends() {
   });
 
   return data?.map((post) => {
-    <Post key={post.postId} post={post} />;
+    <Post noImage={false} key={post.postId} post={post} />;
   });
 }
