@@ -6,7 +6,7 @@ type Props = {
   trend: Hashtag;
 };
 export default function Trend({ trend }: Props) {
-  console.log("trend", trend);
+  // console.log("trend", trend);
   return (
     // <Link href={`/search?q=${trend.title}`} className={style.container}>
     <Link href={`/search?q=${trend.title}`} className={style.container}>
