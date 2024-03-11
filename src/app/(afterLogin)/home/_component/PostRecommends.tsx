@@ -23,6 +23,8 @@ export default function PostRecommends() {
   const { data } = useQuery<IPost[]>({
     queryKey: ["posts", "recommends"],
     queryFn: getPostRecommends,
+    staleTime: 60 * 1000, // fresh -> stale 시간 (1분)
+    gcTime: 300 * 1000, // 기본 5분, inactive 를 봐야함
   });
 
   // console.log("Data", data);
