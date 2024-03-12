@@ -31,9 +31,10 @@ import Tabecider from "./_component/Tabecider";
 export default async function Home() {
   const queryClient = new QueryClient();
   // 서버에서 불러온 데이터를 클라이언트의 react query 가 물려받는다(넘겨받는다, hydrate)
-  await queryClient.prefetchQuery({
+  await queryClient.prefetchInfiniteQuery({
     queryKey: ["posts", "recommends"],
     queryFn: getPostRecommends,
+    initialPageParam: 0, // cursor 값
   });
   // 데이터를 불러오고 나면
   const dehydratedState = dehydrate(queryClient);

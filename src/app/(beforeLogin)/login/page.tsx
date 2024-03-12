@@ -7,6 +7,7 @@ import zLogo from "@/../public/zlogo.png";
 import style from "@/app/page.module.css";
 import Main from "../_component/Main";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 // import { redirect } from "next/navigation";
 
 export default function Login() {
@@ -14,6 +15,14 @@ export default function Login() {
   const router = useRouter();
   const { data: session } = useSession();
 
+  // useEffect(() => {
+  //   router.replace("/i/flow/login");
+  // }, []);
+
+  // if (session) {
+  //   router.replace("/home");
+  //   return null;
+  // }
   if (session) {
     router.replace("/home");
     return null;
