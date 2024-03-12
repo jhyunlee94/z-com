@@ -8,7 +8,8 @@ import {
 import Post from "@/app/(afterLogin)/_component/Post";
 import { Post as IPost } from "@/model/Post";
 import { getPostRecommends } from "../_lib/getPostRecommends";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 // async function getPostRecommends() {
 //   const res = await fetch(`http://localhost:9090/api/postRecommends`, {
 //     next: {
@@ -25,7 +26,7 @@ import { Fragment } from "react";
 // }
 
 export default function PostRecommends() {
-  const { data } = useInfiniteQuery<
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<
     IPost[], // 값 부분
     Object, // 에러부분
     InfiniteData<IPost[]>, // 값 부분
@@ -41,14 +42,30 @@ export default function PostRecommends() {
     getNextPageParam: (lastPage) => lastPage.at(-1)?.postId,
   });
 
+  const { ref, inView } = useInView({
+    threshold: 1, // 문턱, 아래 ref 설정한 div 가 보이고 몇 픽셀 뒤에 보일건지 하는거
+    delay: 0, // 보인 후 몇초 뒤에 호출할건지
+  });
+
   // console.log("Data", data);
 
-  return data?.pages.map((page, i) => (
-    // console.log("post", post);
-    <Fragment key={i}>
-      {page.map((post) => (
-        <Post key={post.postId} post={post} />
+  useEffect(() => {
+    if (inView) {
+      !isFetching && hasNextPage && fetchNextPage();
+    }
+  }, [inView, isFetching, hasNextPage, fetchNextPage]);
+
+  return (
+    <>
+      {data?.pages.map((page, i) => (
+        // console.log("post", post);
+        <Fragment key={i}>
+          {page.map((post) => (
+            <Post key={post.postId} post={post} />
+          ))}
+        </Fragment>
       ))}
-    </Fragment>
-  ));
+      <div ref={ref} style={{ height: 50 }}></div>
+    </>
+  );
 }
