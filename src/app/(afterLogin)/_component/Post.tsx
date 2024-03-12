@@ -46,7 +46,7 @@ export default function Post({ noImage, post }: Props) {
           <Link href={`/${target.User.id}`} className={style.postUserImage}>
             <img src={target.User.image} alt={target.User.nickname} />
           </Link>
-          <div className={style.postShade} />
+          {/* <div className={style.postShade} /> */}
         </div>
         <div className={style.postBody}>
           <div className={style.postMeta}>
@@ -66,9 +66,11 @@ export default function Post({ noImage, post }: Props) {
           </div>
 
           <div style={{ color: "black" }}>{target.content}</div>
-          <div>
-            <PostImages post={target} />
-          </div>
+          {!noImage && (
+            <div>
+              <PostImages post={target} />
+            </div>
+          )}
           {/* <ActionButtons post={post} /> */}
           <ActionButtons />
         </div>

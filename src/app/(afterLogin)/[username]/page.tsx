@@ -28,11 +28,11 @@ export default async function Profile({ params }: Props) {
   });
   const dehydratedState = dehydrate(queryClient);
 
-  const user = {
-    id: "zerohch0",
-    nickname: "제로초",
-    image: "/5Udwvqim.jpg",
-  };
+  // const user = {
+  //   id: "zerohch0",
+  //   nickname: "제로초",
+  //   image: "/5Udwvqim.jpg",
+  // };
 
   // 검색페이지에 노출되는 페이지를 서버사이드 렌더링 하는게 좋음
   return (
