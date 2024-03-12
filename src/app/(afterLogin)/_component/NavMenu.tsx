@@ -1,4 +1,5 @@
 "use client";
+import { useSession } from "next-auth/react";
 import style from "./navMenu.module.css";
 import Link from "next/link";
 import {
@@ -10,13 +11,14 @@ export default function NavMenu() {
   // 현재 레그아웃에있는 맨앞에만 나오는데 만약에
   // component/tweet 까지 받고싶으면 useSelectedLayoutSegments() 가 필요합니다.
   const segment = useSelectedLayoutSegment();
-  console.log(segment);
-  const me = {
-    // 임시로 내 정보 있는것처럼
-    id: "zeroch0",
-    nickname: "제로초",
-    image: "/5Udwvqim.jpg",
-  };
+  const { data: me } = useSession();
+  // console.log(segment);
+  // const me = {
+  //   // 임시로 내 정보 있는것처럼
+  //   id: "zeroch0",
+  //   nickname: "제로초",
+  //   image: "/5Udwvqim.jpg",
+  // };
 
   return (
     <>
@@ -127,11 +129,11 @@ export default function NavMenu() {
           </div>
         </Link>
       </li>
-      {me?.id && (
+      {me?.user?.email && ( // 쓸수 있는 키가 이메일 네임 아이디 이 3개밖에없어서
         <li>
-          <Link href={`/${me?.id}`}>
+          <Link href={`/${me?.user?.email}`}>
             <div className={style.navPill}>
-              {segment === me.id ? (
+              {segment === me.user?.email ? (
                 <>
                   <svg
                     width={26}

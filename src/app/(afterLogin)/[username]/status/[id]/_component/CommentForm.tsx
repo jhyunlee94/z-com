@@ -3,6 +3,7 @@
 import { ChangeEventHandler, EventHandler, useRef, useState } from "react";
 import style from "./commentForm.module.css";
 import { useQueryClient } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 
 type Props = {
   id: string;
@@ -11,19 +12,21 @@ type Props = {
 export default function CommentForm({ id }: Props) {
   const [content, setContent] = useState("");
   const imageRef = useRef<HTMLInputElement>(null);
+  const { data: me } = useSession();
   const onClickButton = () => {};
   const onSubmit = () => {};
   const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setContent(e.target.value);
   };
-  const me = {
-    id: "zerohch0",
-    image: "/5Udwvqim.jpg",
-  };
+  // const me = {
+  //   id: "zerohch0",
+  //   image: "/5Udwvqim.jpg",
+  // };
 
   const queryClient = useQueryClient();
   const post = queryClient.getQueryData(["posts", id]);
 
+  console.log("post", post, id);
   if (!post) {
     return null;
   }
@@ -32,7 +35,10 @@ export default function CommentForm({ id }: Props) {
     <form className={style.postForm} onSubmit={onSubmit}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
-          <img src={me.image} alt={me.id} />
+          <img
+            src={me?.user?.image as string}
+            alt={me?.user?.email as string}
+          />
         </div>
       </div>
       <div className={style.postInputSection}>

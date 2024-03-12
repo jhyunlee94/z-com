@@ -27,7 +27,6 @@ export default async function AfterLoginLayout({ children, modal }: Props) {
             </Link>
             {session?.user && (
               <>
-                {" "}
                 <nav>
                   <ul>
                     <NavMenu />

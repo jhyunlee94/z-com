@@ -47,7 +47,7 @@ export default async function Default({ params }: Props) {
         <ImageZone id={id} />
         <div className={style.commentZone}>
           <SinglePost id={id} noImage />
-          <CommentForm />
+          <CommentForm id={id} />
           <Comments id={id} />
         </div>
       </HydrationBoundary>

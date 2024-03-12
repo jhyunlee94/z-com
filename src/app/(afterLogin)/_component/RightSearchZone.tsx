@@ -1,7 +1,7 @@
 "use client";
 
 import style from "@/app/(afterLogin)/_component/rightSearchZone.module.css";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef } from "react";
 import SearchForm from "./SearchForm";
 
@@ -13,8 +13,28 @@ export default function RightSearchZone() {
   // 그런식으로 가짜 디브를 만든 다음에 이 디브를 클릭했을 때 라디오 버튼이 클릭되게
   // 그렇게 ref 로 연결 해놓으면 됩니다.
   const radioRef = useRef<HTMLInputElement>(null);
-  const onChangeFollow = () => {};
-  const onChangeAll = () => {};
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const onChangeFollow = () => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("pf", "on");
+    router.replace(`/search?${newSearchParams.toString()}`);
+    // let url = `/search?q=${searchParams.get("q")}&pf=on`;
+    // if (searchParams.has("f")) {
+    //   url += `&f=${searchParams.get("f")}`;
+    // }
+    // router.replace(url);
+  };
+  const onChangeAll = () => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.delete("pf");
+    router.replace(`/search?${newSearchParams.toString()}`);
+    // let url = `/search?q=${searchParams.get("q")}`;
+    // if (searchParams.has("f")) {
+    //   url += `&f=${searchParams.get("f")}`;
+    // }
+    // router.replace(url);
+  };
 
   if (pathname === "/explore") return null;
 
