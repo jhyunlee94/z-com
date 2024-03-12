@@ -17,6 +17,10 @@ const User = [
 ];
 const Posts = [];
 
+const delay = (ms: any) =>
+  new Promise((res, rej) => {
+    setTimeout(res, ms);
+  });
 export const handlers = [
   http.post("/api/login", () => {
     console.log("로그인");
@@ -45,7 +49,8 @@ export const handlers = [
       },
     });
   }),
-  http.get("/api/postRecommends", ({ request }) => {
+  http.get("/api/postRecommends", async ({ request }) => {
+    await delay(3000);
     const url = new URL(request.url);
     const cursor = parseInt(url.searchParams.get("cursor") as string) || 0;
 
@@ -121,65 +126,6 @@ export const handlers = [
     //     ],
     //     createdAt: generateDate(),
     //   },
-
-    //   {
-    //     postId: 8,
-    //     User: User[0],
-    //     content: `${cursor + 5} Z.com is so marvelous. I'm gonna buy that.`,
-    //     Images: [
-    //       { imageId: 1, link: faker.image.urlLoremFlickr() },
-    //       { imageId: 2, link: faker.image.urlLoremFlickr() },
-    //       { imageId: 3, link: faker.image.urlLoremFlickr() },
-    //     ],
-    //     createdAt: generateDate(),
-    //   },
-    //   {
-    //     postId: 9,
-    //     User: User[0],
-    //     content: `${cursor + 5} Z.com is so marvelous. I'm gonna buy that.`,
-    //     Images: [
-    //       { imageId: 1, link: faker.image.urlLoremFlickr() },
-    //       { imageId: 2, link: faker.image.urlLoremFlickr() },
-    //       { imageId: 3, link: faker.image.urlLoremFlickr() },
-    //     ],
-    //     createdAt: generateDate(),
-    //   },
-
-    //   {
-    //     postId: 10,
-    //     User: User[0],
-    //     content: `${cursor + 5} Z.com is so marvelous. I'm gonna buy that.`,
-    //     Images: [
-    //       { imageId: 1, link: faker.image.urlLoremFlickr() },
-    //       { imageId: 2, link: faker.image.urlLoremFlickr() },
-    //       { imageId: 3, link: faker.image.urlLoremFlickr() },
-    //     ],
-    //     createdAt: generateDate(),
-    //   },
-
-    //   {
-    //     postId: 11,
-    //     User: User[0],
-    //     content: `${cursor + 5} Z.com is so marvelous. I'm gonna buy that.`,
-    //     Images: [
-    //       { imageId: 1, link: faker.image.urlLoremFlickr() },
-    //       { imageId: 2, link: faker.image.urlLoremFlickr() },
-    //       { imageId: 3, link: faker.image.urlLoremFlickr() },
-    //     ],
-    //     createdAt: generateDate(),
-    //   },
-
-    //   {
-    //     postId: 12,
-    //     User: User[0],
-    //     content: `${cursor + 5} Z.com is so marvelous. I'm gonna buy that.`,
-    //     Images: [
-    //       { imageId: 1, link: faker.image.urlLoremFlickr() },
-    //       { imageId: 2, link: faker.image.urlLoremFlickr() },
-    //       { imageId: 3, link: faker.image.urlLoremFlickr() },
-    //     ],
-    //     createdAt: generateDate(),
-    //   },
     // ]);
 
     return HttpResponse.json([
@@ -232,7 +178,8 @@ export const handlers = [
       },
     ]);
   }),
-  http.get("/api/followingPosts", ({ request }) => {
+  http.get("/api/followingPosts", async ({ request }) => {
+    await delay(3000);
     return HttpResponse.json([
       {
         postId: 1,

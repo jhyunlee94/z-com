@@ -12,6 +12,9 @@ import {
 import { getPostRecommends } from "./_lib/getPostRecommends";
 import PostRecommends from "./_component/PostRecommends";
 import Tabecider from "./_component/Tabecider";
+import { Suspense } from "react";
+import TabDeciderSuspense from "./_component/TabDeciderSuspense";
+import Loading from "./loading";
 
 // async function getPostRecommends() {
 //   const res = await fetch(`http://localhost:9090/api/postRecommends`, {
@@ -29,29 +32,38 @@ import Tabecider from "./_component/Tabecider";
 // }
 
 export default async function Home() {
-  const queryClient = new QueryClient();
-  // 서버에서 불러온 데이터를 클라이언트의 react query 가 물려받는다(넘겨받는다, hydrate)
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ["posts", "recommends"],
-    queryFn: getPostRecommends,
-    initialPageParam: 0, // cursor 값
-  });
-  // 데이터를 불러오고 나면
-  const dehydratedState = dehydrate(queryClient);
-  // hydrate란 서버에서 온 데이터를 클라이언트에서 그대로 형식에 맞춰서 물려받는거
+  // const queryClient = new QueryClient();
+  // // 서버에서 불러온 데이터를 클라이언트의 react query 가 물려받는다(넘겨받는다, hydrate)
+  // await queryClient.prefetchInfiniteQuery({
+  //   queryKey: ["posts", "recommends"],
+  //   queryFn: getPostRecommends,
+  //   initialPageParam: 0, // cursor 값
+  // });
+  // // 데이터를 불러오고 나면
+  // const dehydratedState = dehydrate(queryClient);
+  // // hydrate란 서버에서 온 데이터를 클라이언트에서 그대로 형식에 맞춰서 물려받는거
 
   return (
     <main className={style.main}>
-      <HydrationBoundary state={dehydratedState}>
-        {/* hydrate -> HydrateionBoundary입니다 */}
-        <TabProvider>
-          <Tap />
-          {/* Form 은 대부분 client 라고 생각하면 됨 */}
-          <PostForm />
-          <Tabecider />
-          {/* <PostRecommends /> */}
-        </TabProvider>
-      </HydrationBoundary>
+      {/* <HydrationBoundary state={dehydratedState}> */}
+      {/* hydrate -> HydrateionBoundary입니다 */}
+      <TabProvider>
+        <Tap />
+        {/* Form 은 대부분 client 라고 생각하면 됨 */}
+        <PostForm />
+        {/* <Suspense>
+            <Tabecider />
+          </Suspense> */}
+        <Suspense fallback={<Loading />}>
+          <TabDeciderSuspense />
+        </Suspense>
+        {/* <PostRecommends /> */}
+      </TabProvider>
+      {/* </HydrationBoundary> */}
     </main>
   );
 }
+
+// 1. page.tsx -> loading.tsx
+// 2. 서버Suspense -> fallback
+// 3. react-query -> isPending 으로 처리됨
