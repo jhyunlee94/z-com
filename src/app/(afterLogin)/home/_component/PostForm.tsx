@@ -1,10 +1,18 @@
 "use client";
 
-import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react";
+import {
+  ChangeEventHandler,
+  FormEvent,
+  FormEventHandler,
+  useRef,
+  useState,
+} from "react";
 import style from "./postForm.module.css";
 import { useSession } from "next-auth/react";
 import { Session } from "@auth/core/types";
 import TextareaAutosize from "react-textarea-autosize";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Post } from "@/model/Post";
 type Props = {
   me: Session | null;
 };
@@ -14,30 +22,126 @@ export default function PostForm({ me }: Props) {
   const [preview, setPreview] = useState<
     Array<{ dataUrl: string; file: File } | null>
   >([]);
+  const queryClient = useQueryClient();
+
   // const me = {
   //   id: "zerohch0",
   //   image: "/5Udwvqim.jpg",
   // };
 
   // const { data: me } = useSession();
+
+  // onSuccess, 성공했을때
+  // onMutate, mutation 함수 호출됐을때
+  // onError, 실패했을때
+  // onSettled , onSuccess, onError , 성공이든 에러든 끝났을때, 그 다음에 호출되는 함수
+  const mutation = useMutation({
+    mutationFn: async (e: FormEvent) => {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("content", content);
+      preview.forEach((p) => {
+        p && formData.append("images", p.file);
+      });
+      return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
+        method: "post",
+        credentials: "include",
+        body: formData,
+      });
+    },
+    // 3번째 context 는 onMutate() {return 123 } return 값임
+    async onSuccess(response, variable, context) {
+      const newPost = await response.json();
+      setContent("");
+      setPreview([]);
+      if (queryClient.getQueryData(["posts", "recommends"])) {
+        queryClient.setQueryData(
+          ["posts", "recommends"],
+          (prevData: { pages: Post[][] }) => {
+            const shallow = {
+              ...prevData,
+              pages: [...prevData.pages],
+            };
+            shallow.pages[0] = [...shallow.pages[0]];
+            shallow.pages[0].unshift(newPost);
+            return shallow;
+          }
+        );
+      }
+      if (queryClient.getQueryData(["posts", "followings"])) {
+        queryClient.setQueryData(
+          ["posts", "followings"],
+          (prevData: { pages: Post[][] }) => {
+            const shallow = {
+              ...prevData,
+              pages: [...prevData.pages],
+            };
+            shallow.pages[0] = [...shallow.pages[0]];
+            shallow.pages[0].unshift(newPost);
+            return shallow;
+          }
+        );
+      }
+    },
+    onError(error) {
+      console.error(error);
+      alert("업로드 중 에러가 발생했습니다.");
+    },
+  });
   const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setContent(e.target.value);
   };
-  const onSubmit: FormEventHandler = async (e) => {
-    e.preventDefault();
+  // const onSubmit: FormEventHandler = async (e) => {
+  //   e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("content", content);
-    preview.forEach((p) => {
-      p && formData.append("images", p.file);
-    });
+  //   const formData = new FormData();
+  //   formData.append("content", content);
+  //   preview.forEach((p) => {
+  //     p && formData.append("images", p.file);
+  //   });
 
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
-      method: "post",
-      credentials: "include",
-      body: formData,
-    });
-  };
+  //   try {
+  //     const response = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`,
+  //       {
+  //         method: "post",
+  //         credentials: "include",
+  //         body: formData,
+  //       }
+  //     );
+  //     if (response.status === 201) {
+  //       const newPost = await response.json();
+  //       setContent("");
+  //       setPreview([]);
+
+  //       if (queryClient.getQueryData(["posts", "recommends"])) {
+  //         queryClient.setQueryData(
+  //           ["posts", "recommends"],
+  //           (prevData: { pages: Post[][] }) => {
+  //             const shallow = { ...prevData, pages: [...prevData.pages] };
+  //             shallow.pages[0] = [...shallow.pages[0]];
+  //             shallow.pages[0].unshift(newPost);
+  //             return shallow;
+  //           }
+  //         );
+  //       }
+  //       if (queryClient.getQueryData(["posts", "followings"])) {
+  //         queryClient.setQueryData(
+  //           ["posts", "followings"],
+  //           (prevData: { pages: Post[][] }) => {
+  //             const shallow = { ...prevData, pages: [...prevData.pages] };
+  //             shallow.pages[0] = [...shallow.pages[0]];
+  //             shallow.pages[0].unshift(newPost);
+  //             return shallow;
+  //           }
+  //         );
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.log("err", err);
+  //     alert("업로드 중 에러가 발생했습니다.");
+  //   }
+  // };
   const onClickButton = () => {
     // if(imageRef.current) {
     //     imageRef.current.click();
@@ -70,7 +174,7 @@ export default function PostForm({ me }: Props) {
     });
   };
   return (
-    <form className={style.postForm} onSubmit={onSubmit}>
+    <form className={style.postForm} onSubmit={mutation.mutate}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
           <img
@@ -85,23 +189,19 @@ export default function PostForm({ me }: Props) {
           onChange={onChange}
           placeholder="무슨 일이 일어나고 있나요?"
         />
-        <div style={{ display: "flex" }}>
+        <div className={style.postInputImageContainer}>
           {preview.map(
             (v, index) =>
               v && (
                 <div
                   key={index}
                   onClick={() => onRemoveImage(index)}
-                  style={{ flex: 1 }}
+                  className={style.postInputImageSection}
                 >
                   <img
                     src={v.dataUrl}
                     alt="미리보기"
-                    style={{
-                      width: "100%",
-                      objectFit: "contain",
-                      maxHeight: "100px",
-                    }}
+                    className={style.postInputImage}
                   />
                 </div>
               )

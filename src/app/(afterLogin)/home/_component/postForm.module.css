@@ -87,3 +87,17 @@
 .actionButton:hover {
   background-color: rgb(26, 140, 216);
 }
+
+.postInputImageContainer {
+  display: flex;
+}
+
+.postInputImageSection {
+  flex: 1;
+}
+
+.postInputImage {
+  width: 100%;
+  object-fit: contain;
+  max-height: 100px;
+}
