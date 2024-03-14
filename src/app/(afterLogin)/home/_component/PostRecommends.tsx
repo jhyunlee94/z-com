@@ -87,8 +87,10 @@ export default function PostRecommends() {
       // 화면에 보일 때
       // const th = throttle(fetchNextPage(), 100);
       !isFetching && hasNextPage && fetchNextPage();
+      // hasNextPage && fetchNextPage();
     }
-  }, [inView, isFetching, hasNextPage, fetchNextPage]);
+    // }, [inView, isFetching, hasNextPage, fetchNextPage]);
+  }, [inView, hasNextPage, fetchNextPage]);
 
   // if (isPending) {
   //   return (
