@@ -1,6 +1,6 @@
 .main {
   width: 600px;
-  border-color: rgb(239, 243, 244);
+  border-: rgb(239, 243, 244);
   border-right-width: 1px;
   border-left-width: 1px;
   border-left-style: solid;
@@ -18,7 +18,7 @@
 
 .trendBg {
   margin-top: 60px;
-  background-color: rgb(247, 249, 249);
+  background-: rgb(247, 249, 249);
 }
 .trend {
   border-top: 1px solid rgb(239, 243, 244);

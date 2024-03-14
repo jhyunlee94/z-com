@@ -10,7 +10,7 @@ export default function Home() {
         <SearchForm />
       </div>
       <div className={style.trend}>
-        <h3 style={{ color: "black" }}>나를 위한 트렌드</h3>
+        <h3>나를 위한 트렌드</h3>
         <TrendSection />
       </div>
     </main>

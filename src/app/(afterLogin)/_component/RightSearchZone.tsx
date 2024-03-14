@@ -44,9 +44,9 @@ export default function RightSearchZone() {
         <h5 className={style.filterTitle}>검색 필터</h5>
         <div className={style.filterSection}>
           <div>
-            <label style={{ color: "black" }}>사용자</label>
+            <label>사용자</label>
             <div className={style.radio}>
-              <div style={{ color: "black" }}>모든 사용자</div>
+              <div>모든 사용자</div>
               <input
                 type="radio"
                 name="pf"
@@ -55,7 +55,7 @@ export default function RightSearchZone() {
               />
             </div>
             <div className={style.radio}>
-              <div style={{ color: "black" }}>내가 팔로우하는 사람들</div>
+              <div>내가 팔로우하는 사람들</div>
               <input
                 type="radio"
                 name="pf"

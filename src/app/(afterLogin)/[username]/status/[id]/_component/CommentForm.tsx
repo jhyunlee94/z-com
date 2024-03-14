@@ -43,7 +43,6 @@ export default function CommentForm({ id }: Props) {
       </div>
       <div className={style.postInputSection}>
         <textarea
-          style={{ backgroundColor: "white", color: "black" }}
           value={content}
           onChange={onChange}
           placeholder="답글 게시하기"

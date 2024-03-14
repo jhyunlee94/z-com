@@ -29,15 +29,13 @@ export default function UserInfo({ username }: Props) {
       <>
         <div className={style.header}>
           <BackButton />
-          <h3 style={{ color: "black" }} className={style.headerTitle}>
-            프로필
-          </h3>
+          <h3 className={style.headerTitle}>프로필</h3>
         </div>
         <div className={style.userZone}>
           <div className={style.userImage}></div>
           <div className={style.userName}>
-            <div style={{ color: "black" }}>{username}</div>
-            <div style={{ color: "black" }}>@{username}</div>
+            <div>{username}</div>
+            <div>@{username}</div>
           </div>
         </div>
         <div
@@ -65,17 +63,15 @@ export default function UserInfo({ username }: Props) {
     <>
       <div className={style.header}>
         <BackButton />
-        <h3 style={{ color: "black" }} className={style.headerTitle}>
-          {user.nickname}
-        </h3>
+        <h3 className={style.headerTitle}>{user.nickname}</h3>
       </div>
       <div className={style.userZone}>
         <div className={style.userImage}>
           <img src={user.image} alt={user.id} />
         </div>
         <div className={style.userName}>
-          <div style={{ color: "black" }}>{user.nickname}</div>
-          <div style={{ color: "black" }}>@{user.id}</div>
+          <div>{user.nickname}</div>
+          <div>@{user.id}</div>
         </div>
         <button className={style.followButton}>팔로우</button>
       </div>

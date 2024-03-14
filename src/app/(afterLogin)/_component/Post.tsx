@@ -8,6 +8,7 @@ import PostArticle from "./PostArticle";
 import { faker } from "@faker-js/faker";
 import PostImages from "./PostImages";
 import { Post } from "@/model/Post";
+import { MouseEventHandler } from "react";
 
 dayjs.locale("ko");
 
@@ -39,25 +40,29 @@ export default function Post({ noImage, post }: Props) {
   //   target.Images.push({ imageId: 1, link: faker.image.urlLoremFlickr() });
   // }
 
+  const stopPropagation: MouseEventHandler<HTMLAnchorElement> = (e) => {
+    e.stopPropagation(); // 전파 막기
+  };
+
   return (
     <PostArticle post={target}>
       <div className={style.postWrapper}>
         <div className={style.postUserSection}>
-          <Link href={`/${target.User.id}`} className={style.postUserImage}>
+          <Link
+            href={`/${target.User.id}`}
+            className={style.postUserImage}
+            onClick={stopPropagation}
+          >
             <img src={target.User.image} alt={target.User.nickname} />
           </Link>
           {/* <div className={style.postShade} /> */}
         </div>
         <div className={style.postBody}>
           <div className={style.postMeta}>
-            <Link href={`/${target.User.id}`}>
-              <span className={style.postUserName} style={{ color: "black" }}>
-                {target.User.nickname}
-              </span>
+            <Link href={`/${target.User.id}`} onClick={stopPropagation}>
+              <span className={style.postUserName}>{target.User.nickname}</span>
               &nbsp;
-              <span className={style.postUserId} style={{ color: "black" }}>
-                @{target.User.id}
-              </span>
+              <span className={style.postUserId}>@{target.User.id}</span>
               &nbsp; . &nbsp;
               <span className={style.postDate}>
                 {dayjs(target.createdAt).fromNow(true)}
@@ -65,14 +70,14 @@ export default function Post({ noImage, post }: Props) {
             </Link>
           </div>
 
-          <div style={{ color: "black" }}>{target.content}</div>
+          <div>{target.content}</div>
           {!noImage && (
             <div>
               <PostImages post={target} />
             </div>
           )}
-          {/* <ActionButtons post={post} /> */}
-          <ActionButtons />
+          <ActionButtons post={post} />
+          {/* <ActionButtons postId={post.postId} /> */}
         </div>
       </div>
     </PostArticle>

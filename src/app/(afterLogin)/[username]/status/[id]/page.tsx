@@ -35,9 +35,7 @@ export default async function Page({ params }: Props) {
       <HydrationBoundary state={dehydratedState}>
         <div className={style.header}>
           <BackButton />
-          <h3 style={{ color: "black" }} className={style.headerTitle}>
-            게시하기
-          </h3>
+          <h3 className={style.headerTitle}>게시하기</h3>
         </div>
         <SinglePost id={id} />
         <CommentForm id={id} />

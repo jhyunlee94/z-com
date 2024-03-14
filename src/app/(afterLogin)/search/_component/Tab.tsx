@@ -34,11 +34,11 @@ export default function Tab() {
   return (
     <div className={style.homeFixed}>
       <div className={style.homeTab}>
-        <div onClick={onClickHot} style={{ color: "black" }}>
+        <div onClick={onClickHot}>
           인기
           <div className={style.tabIndicator} hidden={current === "new"}></div>
         </div>
-        <div onClick={onClickNew} style={{ color: "black" }}>
+        <div onClick={onClickNew}>
           최신
           <div className={style.tabIndicator} hidden={current === "hot"}></div>
         </div>
