@@ -5,10 +5,14 @@ import Image from "next/image";
 import style from "./logoutButton.module.css";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Session } from "@auth/core/types";
 
-export default function LogOutButton() {
+type Props = {
+  me: Session | null;
+};
+export default function LogOutButton({ me }: Props) {
   const router = useRouter();
-  const { data: me } = useSession(); // client 에서만 쓸수있고 이게 내 정보임
+  // const { data: me } = useSession(); // client 에서만 쓸수있고 이게 내 정보임
   // const me = {
   //   id: "zeroch0",
   //   nickname: "제로초",

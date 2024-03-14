@@ -1,5 +1,5 @@
 export async function getFollowingPosts() {
-  const res = await fetch(`http://localhost:9090/api/followingPosts`, {
+  const res = await fetch(`http://localhost:9090/api/posts/followings`, {
     next: {
       tags: ["posts", "followings"], // 리액트가 아니라 서버쪽 캐싱임
     },

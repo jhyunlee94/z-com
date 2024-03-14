@@ -20,11 +20,20 @@ export default function LoginModal() {
 
     // signIn("kakao");
     try {
-      await signIn("credentials", {
+      console.log("here");
+      const response = await signIn("credentials", {
         username: id,
         password,
         redirect: false,
       });
+      if (!response?.ok) {
+        setMessage("아이디와 비밀번호가 일치하지 않습니다.");
+      }
+      if (response?.error) {
+        setMessage("아이디와 비밀번호가 일치하지 않습니다.");
+      }
+      console.log("response", response);
+      console.log("here2", response);
       router.replace("/home");
     } catch (error) {
       console.error(error);

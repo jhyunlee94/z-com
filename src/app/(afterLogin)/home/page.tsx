@@ -15,6 +15,7 @@ import Tabecider from "./_component/Tabecider";
 import { Suspense } from "react";
 import TabDeciderSuspense from "./_component/TabDeciderSuspense";
 import Loading from "./loading";
+import { auth } from "@/auth";
 
 // async function getPostRecommends() {
 //   const res = await fetch(`http://localhost:9090/api/postRecommends`, {
@@ -32,6 +33,7 @@ import Loading from "./loading";
 // }
 
 export default async function Home() {
+  const session = await auth();
   // const queryClient = new QueryClient();
   // // 서버에서 불러온 데이터를 클라이언트의 react query 가 물려받는다(넘겨받는다, hydrate)
   // await queryClient.prefetchInfiniteQuery({
@@ -50,7 +52,7 @@ export default async function Home() {
       <TabProvider>
         <Tap />
         {/* Form 은 대부분 client 라고 생각하면 됨 */}
-        <PostForm />
+        <PostForm me={session} />
         {/* <Suspense>
             <Tabecider />
           </Suspense> */}
