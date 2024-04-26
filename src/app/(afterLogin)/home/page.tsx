@@ -16,6 +16,7 @@ import { Suspense } from "react";
 import TabDeciderSuspense from "./_component/TabDeciderSuspense";
 import Loading from "./loading";
 import { auth } from "@/auth";
+import { Metadata } from "next";
 
 // async function getPostRecommends() {
 //   const res = await fetch(`http://localhost:9090/api/postRecommends`, {
@@ -31,6 +32,11 @@ import { auth } from "@/auth";
 
 //   return res.json();
 // }
+
+export const metadata: Metadata = {
+  title: "홈 / Z",
+  description: "홈",
+};
 
 export default async function Home() {
   const session = await auth();

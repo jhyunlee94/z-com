@@ -47,6 +47,14 @@
   flex: 1;
 }
 
+.modalOriginal {
+  padding: 0 16px 20px;
+  margin-top: 54px;
+  margin-bottom: -54px;
+  display: flex;
+  flex-direction: row;
+}
+
 .modalBody {
   padding: 0 16px;
   flex: 1;
@@ -81,10 +89,6 @@
   border: none;
   outline: none;
   font-size: 20px;
-  color: black;
-  background-color: white;
-  /* border: 1px solid black; */
-  /* border-radius: 12px; */
 }
 .input::placeholder {
   font-family: "Malgun Gothic", sans-serif;

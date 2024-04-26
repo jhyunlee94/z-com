@@ -1,7 +1,7 @@
-import { Post } from "@/model/Post";
-import { QueryFunction } from "@tanstack/react-query";
+import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 
-export const getSinglePost = async ({
+export const getSinglePostServer = async ({
   queryKey,
 }: {
   queryKey: [string, string];
@@ -13,10 +13,14 @@ export const getSinglePost = async ({
       next: {
         tags: ["posts", id],
       },
-      // cache: "no-store",
+      cache: "no-store",
       credentials: "include",
+      headers: { Cookie: cookies().toString() },
     }
   );
+
+  // page 에 대한 cache 를 다 날려버리는거임
+  //   revalidatePath('/home')
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
