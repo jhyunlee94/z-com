@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // output: "export", // static mode, 저게 없으면 Dynamic Mode
   reactStrictMode: false,
   async rewrites() {
     return [
