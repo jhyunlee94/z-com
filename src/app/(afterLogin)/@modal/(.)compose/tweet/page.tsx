@@ -109,7 +109,7 @@ export default function TweetModal() {
         p && formData.append("images", p.file);
       });
       return fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${parent.postId}/comments`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${parent?.postId}/comments`,
         {
           method: "post",
           credentials: "include",
@@ -232,7 +232,6 @@ export default function TweetModal() {
   };
   const onClickClose = () => {
     router.back();
-    modalStore.reset();
   };
 
   return (

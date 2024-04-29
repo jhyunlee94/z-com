@@ -1,9 +1,8 @@
 "use client";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import style from "./followRecommend.module.css";
-
 import { User } from "@/model/User";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import cx from "classnames";
 import Link from "next/link";
@@ -18,6 +17,7 @@ export default function FollowRecommend({ user }: Props) {
   const queryClient = useQueryClient();
   const follow = useMutation({
     mutationFn: (userId: string) => {
+      console.log("follow", userId);
       return fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}/follow`,
         {
@@ -52,7 +52,7 @@ export default function FollowRecommend({ user }: Props) {
       if (value2) {
         const shallow = {
           ...value2,
-          Followers: [{ userId: session?.user?.email as string }],
+          Followers: [{ id: session?.user?.email as string }],
           _count: {
             ...value2._count,
             Followers: value2._count?.Followers + 1,
@@ -62,7 +62,6 @@ export default function FollowRecommend({ user }: Props) {
       }
     },
     onError(error, userId: string) {
-      console.error(error);
       const value: User[] | undefined = queryClient.getQueryData([
         "users",
         "followRecommends",
@@ -102,9 +101,9 @@ export default function FollowRecommend({ user }: Props) {
       }
     },
   });
-
   const unfollow = useMutation({
     mutationFn: (userId: string) => {
+      console.log("unfollow", userId);
       return fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${userId}/follow`,
         {
@@ -138,7 +137,7 @@ export default function FollowRecommend({ user }: Props) {
           userId,
         ]);
         if (value2) {
-          const shallow: User = {
+          const shallow = {
             ...value2,
             Followers: value2.Followers.filter(
               (v) => v.id !== session?.user?.email
@@ -153,7 +152,6 @@ export default function FollowRecommend({ user }: Props) {
       }
     },
     onError(error, userId: string) {
-      console.error(error);
       const value: User[] | undefined = queryClient.getQueryData([
         "users",
         "followRecommends",
@@ -177,7 +175,7 @@ export default function FollowRecommend({ user }: Props) {
         userId,
       ]);
       if (value2) {
-        const shallow: User = {
+        const shallow = {
           ...value2,
           Followers: [{ id: session?.user?.email as string }],
           _count: {
@@ -192,6 +190,7 @@ export default function FollowRecommend({ user }: Props) {
   const onFollow: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
     e.preventDefault();
+    console.log("follow", followed, user.id);
     if (followed) {
       unfollow.mutate(user.id);
     } else {
@@ -199,11 +198,6 @@ export default function FollowRecommend({ user }: Props) {
     }
   };
 
-  // const user = {
-  //   id: "elonmusk",
-  //   nickname: "Elon musk",
-  //   image: "./yRsRRjGO.jpg",
-  // };
   return (
     <Link href={`/${user.id}`} className={style.container}>
       <div className={style.userLogoSection}>

@@ -14,6 +14,7 @@ export const {
   auth, // 로그인 했는지 안했는지 알아내는 용
   signIn, // 로그인 하는 용
 } = NextAuth({
+  // trustHost: true, // [auth][error] UntrustedHost 에러 발생시
   pages: {
     signIn: "/i/flow/login",
     newUser: "/i/flow/signup",

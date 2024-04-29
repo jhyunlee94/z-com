@@ -1,34 +1,22 @@
-"use client";
+import Main from "@/app/(beforeLogin)/_component/Main";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import RedirectToLogin from "@/app/(beforeLogin)/login/_component/RedirectToLogin";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import zLogo from "@/../public/zlogo.png";
-import style from "@/app/page.module.css";
-import Main from "../_component/Main";
-import { useSession } from "next-auth/react";
-import { useEffect } from "react";
-// import { redirect } from "next/navigation";
+export default async function Login() {
+  const session = await auth();
 
-export default function Login() {
-  // redirect("/i/flow/login");
-  const router = useRouter();
-  const { data: session } = useSession();
-
-  // useEffect(() => {
-  //   router.replace("/i/flow/login");
-  // }, []);
-
-  // if (session) {
-  //   router.replace("/home");
-  //   return null;
-  // }
-  if (session) {
-    router.replace("/home");
+  if (session?.user) {
+    redirect("/home");
     return null;
   }
-  router.replace("/i/flow/login");
-  return <Main />;
+
+  return (
+    <>
+      <RedirectToLogin />
+      <Main />
+    </>
+  );
 }
 
 // router.push
