@@ -31,6 +31,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Z에서 ${user.nickname} 님 : ${post.content}`,
     description: post.content,
+    openGraph: {
+      title: `Z에서 ${user.nickname} 님 : ${post.content}`,
+      description: post.content,
+      images:
+        post.Images?.length > 0
+          ? post.Images?.map((v) => ({
+              // 이미지 있을때
+              url: `https://z.nodebird.com${v.link}`,
+              width: 400,
+              height: 600,
+            }))
+          : [
+              {
+                // 없을때
+                url: `https://z.nodebird.com${user.image}`, // /upload 되니까
+                width: 400,
+                height: 400,
+              },
+            ],
+    },
   };
 }
 

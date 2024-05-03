@@ -28,6 +28,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${user.nickname} (${user.id}) / Z`,
     description: `${user.nickname} (${user.id}) 프로필`,
+    openGraph: {
+      title: `${user.nickname} (${user.id}) / Z`,
+      description: `${user.nickname} (${user.id}) 프로필`,
+      images: [
+        {
+          // 배포하보고 안되면 이부분 바꾸면됩니다.
+          url: `https://z.nodebird.com${user.image}`, // /upload 되니까
+          width: 400,
+          height: 400,
+        },
+      ],
+    },
   };
 }
 
